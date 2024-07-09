@@ -1,18 +1,15 @@
 
 
-import Navbar from "./components/layout/navbar"
 
-function App() {
-  
 
-  return (
-    <div>
-      <Navbar />
-      <main className="flex-grow">
-       
-      </main>
-    </div>
-  );
-}
+
+import { RouterProvider } from "react-router-dom";
+
+import router from "./routes/route";
+
+
+const App: React.FC = () => {
+  return <RouterProvider router={router} />;
+};
 
 export default App
