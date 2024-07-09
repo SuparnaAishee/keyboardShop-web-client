@@ -7,6 +7,9 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import banner1 from "../assets/images/banner1.jpg"
 import banner2 from"../assets/images/banner2.jpg"
 import banner3 from "../assets/images/banner3.jpeg"
+import FeatureSection from "./featured";
+
+import ReviewSection from "./Review";
 const HeroSection: React.FC = () => {
   const slides = [
     {
@@ -62,6 +65,12 @@ const HeroSection: React.FC = () => {
             </SwiperSlide>
           ))}
         </Swiper>
+      </div>
+      <div>
+        <FeatureSection/>
+      </div>
+      <div>
+       <ReviewSection/>
       </div>
     </div>
   );
