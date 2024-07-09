@@ -2,7 +2,7 @@
 import MainLayout from "@/components/layout/Mainlayout";
 import About from "@/pages/About";
 import Cart from "@/pages/Cart";
-import Home from "@/pages/Home";
+import Home from "@/pages/HeroSection";
 
 import ManageProducts from "@/pages/ManageProducts";
 
