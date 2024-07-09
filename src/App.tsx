@@ -1,14 +1,18 @@
-import { Button } from "./components/ui/button"
+
+
+import Navbar from "./components/layout/navbar"
 
 function App() {
   
 
   return (
-    <>
-     <h1>keyboard web</h1>
-     <Button>welcome</Button>
-    </>
-  )
+    <div>
+      <Navbar />
+      <main className="flex-grow">
+       
+      </main>
+    </div>
+  );
 }
 
 export default App
