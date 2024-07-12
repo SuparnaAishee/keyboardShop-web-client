@@ -1,0 +1,22 @@
+[
+  {
+    "name": "John Doe",
+    "review": "This is the best keyboard I have ever used! Highly recommend it.",
+    "avatar": "src/assets/images/avtar1.png"
+  },
+  {
+    "name": "Jane Smith",
+    "review": "Amazing quality and great customer service. Will buy again!",
+    "avatar": "src/assets/images/avtar1.png"
+  },
+  {
+    "name": "Alice Johnson",
+    "review": "Excellent build quality and great feel. Worth every penny.",
+    "avatar": "src/assets/images/avtar1.png"
+  },
+  {
+    "name": "Bob Brown",
+    "review": "Fast shipping and great product. Will definitely return.",
+    "avatar":"src/assets/images/avtar1.png"
+  }
+]

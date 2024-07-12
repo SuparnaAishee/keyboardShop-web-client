@@ -9,6 +9,9 @@ import banner2 from"../assets/images/banner2.jpg"
 import banner3 from "../assets/images/banner3.jpeg"
 import FeatureSection from "./featured";
 
+
+
+import TopBrands from "./TopBrands";
 import ReviewSection from "./Review";
 const HeroSection: React.FC = () => {
   const slides = [
@@ -69,9 +72,14 @@ const HeroSection: React.FC = () => {
       <div>
         <FeatureSection/>
       </div>
+     
       <div>
-       <ReviewSection/>
+       <TopBrands/>
       </div>
+     <div>
+      <ReviewSection/>
+     </div>
+
     </div>
   );
 };

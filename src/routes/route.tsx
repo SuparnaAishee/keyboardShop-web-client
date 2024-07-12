@@ -2,12 +2,13 @@
 import MainLayout from "@/components/layout/Mainlayout";
 import About from "@/pages/About";
 import Cart from "@/pages/Cart";
+import Contact from "@/pages/contact";
 import Home from "@/pages/HeroSection";
 
 import ManageProducts from "@/pages/ManageProducts";
 
 import Product from "@/pages/products";
-import { Contact } from "lucide-react";
+
 
 import { createBrowserRouter } from "react-router-dom";
 

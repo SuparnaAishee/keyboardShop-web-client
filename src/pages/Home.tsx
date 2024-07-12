@@ -38,7 +38,7 @@ const features = [
 const Home: React.FC = () => {
   return (
     <div>
-      {/* <HeroSection /> */}
+     
       <section className="py-12 px-4">
         <div className="container mx-auto">
           <h2 className="text-2xl font-bold text-center mb-8">Why Choose Us</h2>

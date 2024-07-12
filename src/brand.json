@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Brand One",
+    "logo": "src/assets/images/brand1.webp"
+  },
+  {
+    "name": "Brand Two",
+    "logo": "src/assets/images/brand2.png"
+  },
+  {
+    "name": "Brand Three",
+    "logo": "src/assets/images/brand3.png"
+  },
+  {
+    "name": "Brand Four",
+    "logo": "src/assets/images/brand4.png"
+  },
+  {
+    "name": "Brand Five",
+    "logo": "src/assets/images/brand5.jpg"
+  }
+
+]

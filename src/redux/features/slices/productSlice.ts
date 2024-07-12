@@ -1,10 +1,14 @@
+// src/redux/productsSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Product {
-  id: number;
+  id: string; // Use the correct field from your data, e.g., MongoDB `_id`
   name: string;
   price: number;
   image: string;
+  brand: string;
+  ratings: number;
+  // Include other fields if needed
 }
 
 interface ProductsState {
@@ -22,9 +26,9 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     setProducts(state, action: PayloadAction<Product[]>) {
-      state.products = action.payload;
+     state.products = action.payload;
+     
     },
-    // Add other reducers if needed
   },
 });
 

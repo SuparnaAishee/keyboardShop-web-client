@@ -6,7 +6,7 @@ const reviews = [
   {
     name: "John Doe",
     review: "This is the best keyboard I have ever used! Highly recommend it.",
-    avatar: avtar1, // Replace with actual image paths or URLs
+    avatar: avtar1, 
   },
   {
     name: "Jane Smith",
@@ -24,7 +24,7 @@ const ReviewSection: React.FC = () => {
   return (
     <section className="py-12 px-4 ">
       <div className="container mx-auto text-center ">
-        <h2 className="text-2xl text-white font-bold mb-8">Customer Reviews</h2>
+        <h2 className="text-2xl text-white font-bold mb-8">Hear From Our Happy Clients</h2>
         <div className="flex flex-wrap justify-center">
           {reviews.map((review, index) => (
             <div
@@ -36,7 +36,7 @@ const ReviewSection: React.FC = () => {
                 <AvatarFallback>{review.name[0]}</AvatarFallback>
               </Avatar>
               <p className="text-white mb-2">{review.review}</p>
-              <h3 className="text-lg font-bold">{review.name}</h3>
+              <h3 className="text-lg font-bold text-blue-400">{review.name}</h3>
             </div>
           ))}
         </div>
