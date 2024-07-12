@@ -2,13 +2,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Product {
-  id: string; // Use the correct field from your data, e.g., MongoDB `_id`
+  id: string; 
   name: string;
   price: number;
   image: string;
   brand: string;
   ratings: number;
-  // Include other fields if needed
+ 
 }
 
 interface ProductsState {
@@ -26,11 +26,35 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     setProducts(state, action: PayloadAction<Product[]>) {
-     state.products = action.payload;
-     
+      state.products = action.payload;
+      state.filteredProducts = action.payload; 
+    },
+    setSearchTerm(state, action: PayloadAction<string>) {
+      state.searchTerm = action.payload;
+      
+      const searchTerm = action.payload.toLowerCase();
+      state.filteredProducts = state.products.filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchTerm) ||
+          product.brand.toLowerCase().includes(searchTerm)
+      );
     },
   },
 });
 
-export const { setProducts } = productsSlice.actions;
+export const { setProducts, setSearchTerm } = productsSlice.actions;
 export default productsSlice.reducer;
+
+// const productsSlice = createSlice({
+//   name: "products",
+//   initialState,
+//   reducers: {
+//     setProducts(state, action: PayloadAction<Product[]>) {
+//      state.products = action.payload;
+     
+//     },
+//   },
+// });
+
+// export const { setProducts } = productsSlice.actions;
+// export default productsSlice.reducer;

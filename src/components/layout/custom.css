@@ -107,3 +107,20 @@
 .animated-image {
   animation: pulse 2s infinite;
 }
+
+/* Add smooth scrolling in best selling product */
+.scroll-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+.scroll-container > .product-card {
+  display: inline-block;
+  vertical-align: top;
+}
+/* Hide scrollbar for a cleaner look (optional) */
+.scroll-container::-webkit-scrollbar {
+  display: none; /* Hides scrollbar in WebKit-based browsers */
+}

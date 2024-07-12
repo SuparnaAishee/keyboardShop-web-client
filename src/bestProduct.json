@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Product 1",
+    "brand": "Brand A",
+    "price": 29.99,
+    "ratings": 4.5
+  },
+  {
+    "name": "Product 2",
+    "brand": "Brand B",
+    "price": 39.99,
+    "ratings": 3.8
+  },
+  {
+    "name": "Product 3",
+    "brand": "Brand A",
+    "price": 49.99,
+    "ratings": 4.2
+  },
+  {
+    "name": "Product 4",
+    "brand": "Brand C",
+    "price": 59.99,
+    "ratings": 4.9
+  },
+  {
+    "name": "Product 5",
+    "brand": "Brand B",
+    "price": 69.99,
+    "ratings": 4.0
+  },
+  {
+    "name": "Product 6",
+    "brand": "Brand B",
+    "price": 69.99,
+    "ratings": 4.0
+  },
+  {
+    "name": "Product 7",
+    "brand": "Brand B",
+    "price": 69.99,
+    "ratings": 4.0
+  },
+  {
+    "name": "Product 8",
+    "brand": "Brand B",
+    "price": 69.99,
+    "ratings": 4.0
+  },
+  {
+    "name": "Product 9",
+    "brand": "Brand B",
+    "price": 69.99,
+    "ratings": 4.0
+  },
+  {
+    "name": "Product 10",
+    "brand": "Brand B",
+    "price": 69.99,
+    "ratings": 4.0
+  }
+]

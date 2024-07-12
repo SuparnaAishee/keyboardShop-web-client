@@ -83,7 +83,7 @@ const ContactUs: React.FC = () => {
         
          <div className="md:w-1/2 flex justify-center items-center px-4">
            <img
-             src="src/assets/images/file.png" 
+             src="src/assets/images/pngegg (1).png" 
              alt="Contact Us"
              className="w-full max-w-md h-auto" 
            />
@@ -91,12 +91,12 @@ const ContactUs: React.FC = () => {
        </div>
      </section>
      <section >
-       <div className="mt-12 ">
-         <h2 className="text-3xl pt-6 font-bold text-white text-center mb-8 mt-16">
+       <div className="mt-16  ">
+         <h2 className="text-3xl pt-6 font-bold text-white text-center mb-8 mt-16 ">
            We'Re Here To Help
          </h2>
-         <div className=" flex flex-wrap justify-center gap-8">
-           <div className="p-4  shadow-lg rounded-lg text-center hover:shadow-xl transition-shadow duration-300 w-60 bg-gray-900">
+         <div className=" flex flex-wrap justify-center gap-8 pb-16">
+           <div className="p-4  shadow-lg rounded-lg text-center pb-12hover:shadow-xl transition-shadow duration-300 w-60 bg-gray-900">
            
              <svg
                xmlns="http://www.w3.org/2000/svg"

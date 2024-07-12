@@ -13,6 +13,12 @@ import FeatureSection from "./featured";
 
 import TopBrands from "./TopBrands";
 import ReviewSection from "./Review";
+import FAQ from "./FAQ";
+import BestSellingProducts from "./bestProducts";
+import LatestProducts from "./LatestProduct";
+
+
+
 const HeroSection: React.FC = () => {
   const slides = [
     {
@@ -70,16 +76,22 @@ const HeroSection: React.FC = () => {
         </Swiper>
       </div>
       <div>
-        <FeatureSection/>
+        <FeatureSection />
       </div>
-     
-      <div>
-       <TopBrands/>
-      </div>
-     <div>
-      <ReviewSection/>
-     </div>
 
+      <div>
+        <TopBrands />
+      </div>
+    <div><LatestProducts/></div>
+      <div>
+        <BestSellingProducts />
+      </div>
+      <div>
+        <ReviewSection />
+      </div>
+      <div>
+        <FAQ />
+      </div>
     </div>
   );
 };
