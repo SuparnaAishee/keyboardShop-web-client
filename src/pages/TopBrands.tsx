@@ -1,5 +1,5 @@
 import React from "react";
-import brands from "../brand.json";
+import brands from "@/brand.json";
 
 const TopBrands: React.FC = () => {
   return (

@@ -3,10 +3,10 @@ import React from "react";
 
 
 const LatestProducts: React.FC = () => {
-  const { data: products, error, isLoading } = useGetLatestProductsQuery();
+  const { data: products, isLoading } = useGetLatestProductsQuery();
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  // if (error) return <div>Error: {error.message}</div>;
 
   return (
     <section className="bg-gray-800 py-12 ">

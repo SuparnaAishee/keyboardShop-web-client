@@ -1,9 +1,10 @@
-import  { useEffect, useState } from "react";
-import  {
+import { useEffect, useState } from "react";
+import {
   useGetProductsQuery,
   useDeleteProductMutation,
   useUpdateProductMutation,
   useCreateProductMutation,
+  Product,
 } from "@/redux/api/api";
 import {
   Table,
@@ -32,25 +33,26 @@ const ManageProduct = () => {
   const [createProduct] = useCreateProductMutation();
   const { toast } = useToast();
 
-  const [products, setProducts] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [newProduct, setNewProduct] = useState({
+  // Set initial state types
+  const [products, setProducts] = useState<Product[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [newProduct, setNewProduct] = useState<Partial<Product>>({
     name: "",
     brand: "",
     price: 0,
     description: "",
     image: "",
-    availableQuantity: 0,
-    rating: 0,
+    quantity: 0, 
+    ratings: 0, 
   });
 
   useEffect(() => {
     if (data) {
-      setProducts(data.data);
+      setProducts(data?.data); 
     }
   }, [data]);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     try {
       await deleteProduct(id).unwrap();
       setProducts((prevProducts) =>
@@ -65,8 +67,8 @@ const ManageProduct = () => {
       });
     }
   };
- 
-  const handleUpdate = async (id, updatedProduct) => {
+
+  const handleUpdate = async (id: string, updatedProduct: Partial<Product>) => {
     try {
       const response = await updateProduct({
         id,
@@ -85,10 +87,10 @@ const ManageProduct = () => {
     }
   };
 
-  const handleCreate = async (product) => {
+  const handleCreate = async (product: Partial<Product>) => {
     try {
       const response = await createProduct(product).unwrap();
-      setProducts([...products, response]);
+      setProducts((prevProducts) => [...prevProducts, response]);
       toast({ description: "Product created successfully!" });
     } catch (err) {
       console.error("Create Error:", err);
@@ -100,7 +102,9 @@ const ManageProduct = () => {
   };
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (error)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return <div>Error: {(error as any).data?.message || "Unknown error"}</div>;
 
   return (
     <div className="bg-gray-800">
@@ -108,7 +112,12 @@ const ManageProduct = () => {
         Product Management
       </h1>
       <div className="pl-20 pr-20">
-        <Button onClick={() => setSelectedProduct({})} className="bg-blue-600">Add Product</Button>
+        <Button
+          onClick={() => setSelectedProduct(null)}
+          className="bg-blue-600"
+        >
+          Add Product
+        </Button>
         <Table className="text-white">
           <TableHeader>
             <TableRow>
@@ -137,7 +146,7 @@ const ManageProduct = () => {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan="4" className="text-center">
+                <TableCell colSpan={4} className="text-center">
                   No products available
                 </TableCell>
               </TableRow>
@@ -145,7 +154,7 @@ const ManageProduct = () => {
           </TableBody>
         </Table>
       </div>
-      {selectedProduct && (
+      {selectedProduct !== null && (
         <Dialog open={true} onOpenChange={() => setSelectedProduct(null)}>
           <DialogContent>
             <DialogHeader>
@@ -168,10 +177,12 @@ const ManageProduct = () => {
                 <Input
                   placeholder="Name"
                   value={
-                    selectedProduct._id ? selectedProduct.name : newProduct.name
+                    selectedProduct?._id
+                      ? selectedProduct.name
+                      : newProduct.name
                   }
                   onChange={(e) =>
-                    selectedProduct._id
+                    selectedProduct?._id
                       ? setSelectedProduct({
                           ...selectedProduct,
                           name: e.target.value,
@@ -182,12 +193,12 @@ const ManageProduct = () => {
                 <Input
                   placeholder="Brand"
                   value={
-                    selectedProduct._id
+                    selectedProduct?._id
                       ? selectedProduct.brand
                       : newProduct.brand
                   }
                   onChange={(e) =>
-                    selectedProduct._id
+                    selectedProduct?._id
                       ? setSelectedProduct({
                           ...selectedProduct,
                           brand: e.target.value,
@@ -199,12 +210,12 @@ const ManageProduct = () => {
                   placeholder="Price"
                   type="number"
                   value={
-                    selectedProduct._id
+                    selectedProduct?._id
                       ? selectedProduct.price
                       : newProduct.price
                   }
                   onChange={(e) =>
-                    selectedProduct._id
+                    selectedProduct?._id
                       ? setSelectedProduct({
                           ...selectedProduct,
                           price: parseFloat(e.target.value),
@@ -218,12 +229,12 @@ const ManageProduct = () => {
                 <Input
                   placeholder="Description"
                   value={
-                    selectedProduct._id
+                    selectedProduct?._id
                       ? selectedProduct.description
                       : newProduct.description
                   }
                   onChange={(e) =>
-                    selectedProduct._id
+                    selectedProduct?._id
                       ? setSelectedProduct({
                           ...selectedProduct,
                           description: e.target.value,
@@ -237,12 +248,12 @@ const ManageProduct = () => {
                 <Input
                   placeholder="Image URL"
                   value={
-                    selectedProduct._id
+                    selectedProduct?._id
                       ? selectedProduct.image
                       : newProduct.image
                   }
                   onChange={(e) =>
-                    selectedProduct._id
+                    selectedProduct?._id
                       ? setSelectedProduct({
                           ...selectedProduct,
                           image: e.target.value,
@@ -251,42 +262,42 @@ const ManageProduct = () => {
                   }
                 />
                 <Input
-                  placeholder="Available Quantity"
+                  placeholder="Quantity"
                   type="number"
                   value={
-                    selectedProduct._id
-                      ? selectedProduct.availableQuantity
-                      : newProduct.availableQuantity
+                    selectedProduct?._id
+                      ? selectedProduct.quantity
+                      : newProduct.quantity
                   }
                   onChange={(e) =>
-                    selectedProduct._id
+                    selectedProduct?._id
                       ? setSelectedProduct({
                           ...selectedProduct,
-                          availableQuantity: parseInt(e.target.value),
+                          quantity: parseInt(e.target.value),
                         })
                       : setNewProduct({
                           ...newProduct,
-                          availableQuantity: parseInt(e.target.value),
+                          quantity: parseInt(e.target.value),
                         })
                   }
                 />
                 <Input
-                  placeholder="Rating"
+                  placeholder="Ratings"
                   type="number"
                   value={
-                    selectedProduct._id
-                      ? selectedProduct.rating
-                      : newProduct.rating
+                    selectedProduct?._id
+                      ? selectedProduct.ratings
+                      : newProduct.ratings
                   }
                   onChange={(e) =>
-                    selectedProduct._id
+                    selectedProduct?._id
                       ? setSelectedProduct({
                           ...selectedProduct,
-                          rating: parseFloat(e.target.value),
+                          ratings: parseFloat(e.target.value),
                         })
                       : setNewProduct({
                           ...newProduct,
-                          rating: parseFloat(e.target.value),
+                          ratings: parseFloat(e.target.value),
                         })
                   }
                 />

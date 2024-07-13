@@ -4,9 +4,8 @@ import { Product } from '@/redux/api/api';
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-
 interface ProductCardProps {
-  product: Product;
+  item: Product; 
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ item }) => {

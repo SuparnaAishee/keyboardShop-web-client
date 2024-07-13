@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
     <footer className="bg-black text-gray-300 py-8">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="flex flex-col items-center md:items-start">
-          <img src="src/assets/images/logo.png" alt="My E-commerce Logo" className="w-30 h-24 mb-4" />
+          <img src="/assets/images/logo.png" alt="My E-commerce Logo" className="w-30 h-24 mb-4" />
           <p className="text-sm">
             &copy; {new Date().getFullYear()} KEYDOM. All rights
             reserved.

@@ -7,7 +7,8 @@ import { decrementQuantity, incrementQuantity, removeFromCart, setTotalAmount, t
 
 const CartPage: React.FC = () => {
   const cartItems = useSelector((state: RootState) => state.cart.items);
-  const totalAmount = useSelector((state: RootState) => state.cart.totalAmount); 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const totalAmount = useSelector((state: RootState) => state.cart.totalAmount); 
   const dispatch = useDispatch();
 
   const handleIncrement = (id: string) => {

@@ -8,17 +8,23 @@ interface Product {
   image: string;
   brand: string;
   ratings: number;
+  quantity:number;
+  data:Product[];
  
 }
 
 interface ProductsState {
   products: Product[];
   status: "idle" | "loading" | "failed";
+  filteredProducts: Product[];
+  searchTerm: string;
 }
 
 const initialState: ProductsState = {
   products: [],
   status: "idle",
+  filteredProducts: [],
+  searchTerm: "",
 };
 
 const productsSlice = createSlice({

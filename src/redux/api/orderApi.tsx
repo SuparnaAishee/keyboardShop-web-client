@@ -25,14 +25,15 @@ export interface Order {
 }
 export const ordersApi = createApi({
   reducerPath: "ordersApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://keyboard-web-server.vercel.app/api",
+  }),
   endpoints: (builder) => ({
     createOrder: builder.mutation<Order, Partial<Order>>({
       query: (orderDetails) => ({
         url: "orders",
         method: "POST",
-        body:orderDetails
-       
+        body: orderDetails,
       }),
     }),
   }),

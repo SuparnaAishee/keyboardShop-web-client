@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
 
 export interface Product {
+  quantity: string | number | readonly string[] | undefined;
   _id: string;
   image: string;
   name: string;
@@ -15,9 +16,11 @@ export interface Product {
 }
  export const baseApi = createApi({
    reducerPath: "baseApi",
-   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api" }),
+   baseQuery: fetchBaseQuery({
+     baseUrl: "https://keyboard-web-server.vercel.app/api",
+   }),
    endpoints: (builder) => ({
-     getProducts: builder.query<Product[], void>({
+     getProducts: builder.query<{ data: Product[] }, void>({
        // query: (searchTerm='') => `products?search=${searchTerm}`,
        query: () => ({
          url: "/products",

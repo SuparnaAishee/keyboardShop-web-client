@@ -4,28 +4,25 @@ import logo from "../../assets/images/logo.png";
 import { Button } from "../ui/button";
 import { NavLink } from "react-router-dom";
 import Marquee from "./marquee";
-import { useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import {selectTotalQuantity} from "../../redux/features/slices/cartSlice"
-import { RootState } from "@reduxjs/toolkit/query";
+import { RootState } from "@/redux/store";
+
 const Navbar: React.FC = () => {
- const [query,setSearchInput,searchInput] = useState("");
+ // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-   const totalQuantity = useSelector((state: RootState) =>
+   const totalQuantity = useSelector((state:RootState) =>
      selectTotalQuantity(state)
    );
   
 
 
- const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-   const value = event.target.value;
-   setSearchInput(value);
-   dispatch(setSearchTerm(value));
- };
   return (
     <div>
       <div className="pb-8">
@@ -38,8 +35,7 @@ const Navbar: React.FC = () => {
             <div className="hidden md:flex items-center bg-gray-800 text-gray-300 rounded-lg ml-2">
               <input
                 type="text"
-                value={searchInput}
-                onChange={handleSearchChange}
+               
                 placeholder="Search Product..."
                 className="bg-transparent border-none focus:outline-none focus:ring-0 pl-3 pr-2 py-1"
               />
@@ -223,3 +219,6 @@ const Navbar: React.FC = () => {
 };
 
 export default Navbar;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+
+

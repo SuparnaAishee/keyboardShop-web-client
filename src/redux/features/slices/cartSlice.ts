@@ -1,26 +1,30 @@
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "@reduxjs/toolkit/query";
-
+import { RootState } from "src/redux/store.ts";
+import { ReactNode } from "react";
 interface CartItem {
+  image: string | undefined;
+  brand: ReactNode;
   _id: string;
-  id: string; 
+  id: string; // or other unique identifier
   name: string;
   price: number;
-  image: string;
   quantity: number;
+  selected?: boolean; // Add this line if you need it
 }
+
 
 interface CartState {
   items: CartItem[];
   totalQuantity: number;
   totalAmount: number;
 }
-
 const initialState: CartState = {
   items: [],
   totalQuantity: 0,
+  totalAmount: 0, 
 };
+
 
 const cartSlice = createSlice({
   name: "cart",

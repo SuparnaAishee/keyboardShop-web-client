@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import React from "react";
-import avtar1 from "../assets/images/avtar1.png"
+import avtar1 from "@/assets/images/avtar1.png";
 
 const reviews = [
   {
@@ -32,7 +32,7 @@ const ReviewSection: React.FC = () => {
               className="max-w-sm p-4 bg-gray-900  shadow-lg rounded-lg mx-2 mb-4 transform transition-transform duration-300 hover:scale-105 "
             >
               <Avatar className="h-16 w-16 text-white rounded-full mx-auto mb-4 border-2 border-blue-500">
-                <AvatarImage src={review.avatar} alt={review.name} />
+                <AvatarImage src ={review.avatar} alt={review.name} />
                 <AvatarFallback>{review.name[0]}</AvatarFallback>
               </Avatar>
               <p className="text-white mb-2">{review.review}</p>
