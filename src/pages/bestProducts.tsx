@@ -1,6 +1,4 @@
-
-
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
 interface Product {
@@ -9,31 +7,105 @@ interface Product {
   brand: string;
   price: number;
   ratings: number;
-  image?: string; 
+  image?: string;
 }
 
+const productData: Product[] = [
+  {
+    id: 1,
+    name: "Product 1",
+    brand: "Brand A",
+    price: 29.99,
+    ratings: 4.5,
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdj9Zz_wiq-g97Io9L2MLnfb8uc9Q6c4kQzA&s",
+  },
+  {
+    id: 2,
+    name: "Product 2",
+    brand: "Brand B",
+    price: 39.99,
+    ratings: 3.8,
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdj9Zz_wiq-g97Io9L2MLnfb8uc9Q6c4kQzA&s",
+  },
+  {
+    id: 3,
+    name: "Product 3",
+    brand: "Brand A",
+    price: 49.99,
+    ratings: 4.2,
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdj9Zz_wiq-g97Io9L2MLnfb8uc9Q6c4kQzA&s",
+  },
+  {
+    id: 4,
+    name: "Product 4",
+    brand: "Brand C",
+    price: 59.99,
+    ratings: 4.9,
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdj9Zz_wiq-g97Io9L2MLnfb8uc9Q6c4kQzA&s",
+  },
+  {
+    id: 5,
+    name: "Product 5",
+    brand: "Brand B",
+    price: 69.99,
+    ratings: 4.0,
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdj9Zz_wiq-g97Io9L2MLnfb8uc9Q6c4kQzA&s",
+  },
+  {
+    id: 6,
+    name: "Product 6",
+    brand: "Brand B",
+    price: 69.99,
+    ratings: 4.0,
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdj9Zz_wiq-g97Io9L2MLnfb8uc9Q6c4kQzA&s",
+  },
+  {
+    id: 7,
+    name: "Product 7",
+    brand: "Brand B",
+    price: 69.99,
+    ratings: 4.0,
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdj9Zz_wiq-g97Io9L2MLnfb8uc9Q6c4kQzA&s",
+  },
+  {
+    id: 8,
+    name: "Product 8",
+    brand: "Brand B",
+    price: 69.99,
+    ratings: 4.0,
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdj9Zz_wiq-g97Io9L2MLnfb8uc9Q6c4kQzA&s",
+  },
+  {
+    id: 9,
+    name: "Product 9",
+    brand: "Brand B",
+    price: 69.99,
+    ratings: 4.0,
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdj9Zz_wiq-g97Io9L2MLnfb8uc9Q6c4kQzA&s",
+  },
+  {
+    id: 10,
+    name: "Product 10",
+    brand: "Brand B",
+    price: 69.99,
+    ratings: 4.0,
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdj9Zz_wiq-g97Io9L2MLnfb8uc9Q6c4kQzA&s",
+  },
+];
+
 const BestSellingProducts: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [products] = useState<Product[]>(productData);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("src/bestProduct.json");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data: Product[] = await response.json();
-        setProducts(data); 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
-        setError(error.message);
-      }
-    };
-
-    fetchProducts();
-  }, []);
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -47,8 +119,6 @@ const BestSellingProducts: React.FC = () => {
     }
   };
 
-  if (error) return <div>Error: {error}</div>;
-
   return (
     <section className="bg-gray-900 py-12">
       <div className="container mx-auto px-4">
@@ -60,13 +130,18 @@ const BestSellingProducts: React.FC = () => {
             ref={scrollContainerRef}
             className="overflow-x-auto whitespace-nowrap pb-4 scroll-smooth scroll-container"
           >
-          
             {products.map((product, index) => (
               <div
                 key={index}
                 className="inline-block bg-white shadow-lg rounded-lg overflow-hidden w-60 mr-4"
               >
-               
+                {product.image && (
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-40 object-cover"
+                  />
+                )}
                 <div className="p-4">
                   <h3 className="text-lg font-semibold text-gray-800">
                     {product.name}
