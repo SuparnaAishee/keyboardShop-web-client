@@ -1,7 +1,7 @@
-// src/components/FAQ.tsx
+
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Ensure you have react-router-dom installed
+import { Link } from "react-router-dom"; 
 
 const FAQ: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);

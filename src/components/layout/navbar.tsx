@@ -1,4 +1,4 @@
-// src/components/Navbar.tsx
+
 import React, { useState } from "react";
 import logo from "../../assets/images/logo.png";
 import { Button } from "../ui/button";
@@ -20,10 +20,7 @@ const Navbar: React.FC = () => {
    );
   
 
- 
-// const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-//   dispatch(setSearchTerm(event.target.value));
-// };
+
  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
    const value = event.target.value;
    setSearchInput(value);

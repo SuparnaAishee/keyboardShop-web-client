@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@reduxjs/toolkit/query";
 
 interface CartItem {
+  _id: string;
   id: string; 
   name: string;
   price: number;
@@ -13,6 +14,7 @@ interface CartItem {
 interface CartState {
   items: CartItem[];
   totalQuantity: number;
+  totalAmount: number;
 }
 
 const initialState: CartState = {
@@ -63,6 +65,9 @@ const cartSlice = createSlice({
     toggleSelectAll(state, action: PayloadAction<boolean>) {
       state.items.forEach((item) => (item.selected = action.payload));
     },
+    setTotalAmount(state, action: PayloadAction<number>) {
+      state.totalAmount = action.payload;
+    },
   },
 });
 
@@ -72,7 +77,9 @@ export const {
   decrementQuantity,
   removeFromCart,
   toggleSelectAll,
-  toggleSelectItem
+  toggleSelectItem,
+  setTotalAmount
+  
 } = cartSlice.actions;
 export const selectTotalQuantity = (state: RootState) =>
   state.cart.totalQuantity;

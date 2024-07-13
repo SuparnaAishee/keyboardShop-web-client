@@ -122,5 +122,5 @@
 }
 /* Hide scrollbar for a cleaner look (optional) */
 .scroll-container::-webkit-scrollbar {
-  display: none; /* Hides scrollbar in WebKit-based browsers */
+  display: none; 
 }

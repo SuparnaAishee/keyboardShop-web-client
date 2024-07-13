@@ -1,4 +1,4 @@
-// src/components/BestSellingProducts.tsx
+
 
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ interface Product {
   brand: string;
   price: number;
   ratings: number;
-  image?: string; // Optional, if you have images
+  image?: string; 
 }
 
 const BestSellingProducts: React.FC = () => {
@@ -25,7 +25,7 @@ const BestSellingProducts: React.FC = () => {
           throw new Error("Network response was not ok");
         }
         const data: Product[] = await response.json();
-        setProducts(data); // Load all products
+        setProducts(data); 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         setError(error.message);
@@ -60,18 +60,13 @@ const BestSellingProducts: React.FC = () => {
             ref={scrollContainerRef}
             className="overflow-x-auto whitespace-nowrap pb-4 scroll-smooth scroll-container"
           >
-            {/* Displaying products */}
+          
             {products.map((product, index) => (
               <div
                 key={index}
                 className="inline-block bg-white shadow-lg rounded-lg overflow-hidden w-60 mr-4"
               >
-                {/* Optional image section */}
-                {/* <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-40 object-cover"
-                /> */}
+               
                 <div className="p-4">
                   <h3 className="text-lg font-semibold text-gray-800">
                     {product.name}

@@ -9,30 +9,33 @@ const LatestProducts: React.FC = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <section className="bg-gray-100 py-12">
+    <section className="bg-gray-800 py-12 ">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+        <h2 className="text-3xl font-bold text-white mb-8 text-center pb-4">
           Latest Products
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pl-16">
           {products && products.length > 0 ? (
             products.map((product) => (
               <div
                 key={product._id}
-                className="bg-white shadow-lg rounded-lg overflow-hidden"
+                className="  bg-white shadow-md rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-lg"
+                style={{ maxWidth: "300px" }}
               >
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-40 object-cover"
+                  className="w-full h-32 object-cover"
                 />
                 <div className="p-4">
                   <h3 className="text-lg font-semibold text-gray-800">
                     {product.name}
                   </h3>
-                  <p className="text-gray-600">{product.brand}</p>
-                  <p className="text-gray-600">${product.price.toFixed(2)}</p>
-                  <div className="flex items-center">
+                  <p className="text-sm text-gray-600">{product.brand}</p>
+                  <p className="text-sm text-gray-600">
+                    ${product.price.toFixed(2)}
+                  </p>
+                  <div className="flex items-center mb-2">
                     {[...Array(5)].map((_, i) => (
                       <svg
                         key={i}
@@ -51,7 +54,7 @@ const LatestProducts: React.FC = () => {
                   </div>
                   <a
                     href={`/products/${product._id}`}
-                    className="text-blue-500 hover:underline"
+                    className="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
                   >
                     View Details
                   </a>
@@ -59,8 +62,16 @@ const LatestProducts: React.FC = () => {
               </div>
             ))
           ) : (
-            <div>No latest products available.</div>
+            <div className="text-white">No latest products available.</div>
           )}
+        </div>
+        <div className="flex justify-center mt-8">
+          <a
+            href="/products"
+            className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition duration-300"
+          >
+            See More
+          </a>
         </div>
       </div>
     </section>

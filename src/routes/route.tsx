@@ -2,6 +2,7 @@
 import MainLayout from "@/components/layout/Mainlayout";
 import About from "@/pages/About";
 import Cart from "@/pages/Cart";
+import CheckoutPage from "@/pages/checkout";
 import Contact from "@/pages/contact";
 import Home from "@/pages/HeroSection";
 
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
       { path: "about", element: <About /> },
       { path: "contact", element: <Contact /> },
       { path: "cart", element: <Cart /> },
+      {path:"checkout",element:<CheckoutPage/>}
     ],
   },
 ]);

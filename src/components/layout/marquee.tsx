@@ -1,4 +1,3 @@
-// src/components/Marquee.tsx
 
 import React from "react";
 import "./custom.css"

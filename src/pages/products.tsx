@@ -17,7 +17,7 @@ const ProductsPage: React.FC = () => {
 
   useEffect(() => {
     if (data) {
-      setProducts(data?.data); // Set products to data.data array
+      setProducts(data?.data); 
     }
   }, [data]);
 

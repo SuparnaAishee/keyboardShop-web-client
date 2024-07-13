@@ -49,7 +49,7 @@ const FeatureSection: React.FC = () => {
                   className="w-16 h-16"
                 />
               </div>
-              <h3 className="text-xl  font-bold mb-2">{feature.title}</h3>
+              <h3 className="text-xl  font-bold mb-2 text-blue-600">{feature.title}</h3>
               <p className="text-black mb-4">{feature.description}</p>
              
             </Card>

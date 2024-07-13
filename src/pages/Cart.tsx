@@ -1,17 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/store";
-import {
-  decrementQuantity,
-  incrementQuantity,
-  removeFromCart,
-  toggleSelectAll,
-  toggleSelectItem,
-} from "@/redux/features/slices/cartSlice";
 
+import { NavLink } from "react-router-dom";
+import { decrementQuantity, incrementQuantity, removeFromCart, setTotalAmount, toggleSelectAll, toggleSelectItem } from "@/redux/features/slices/cartSlice";
 
 const CartPage: React.FC = () => {
   const cartItems = useSelector((state: RootState) => state.cart.items);
+  const totalAmount = useSelector((state: RootState) => state.cart.totalAmount); 
   const dispatch = useDispatch();
 
   const handleIncrement = (id: string) => {
@@ -36,17 +32,19 @@ const CartPage: React.FC = () => {
     dispatch(toggleSelectAll(event.target.checked));
   };
 
-  const getTotalPrice = () => {
-    return cartItems
+  const calculateTotalPrice = () => {
+    const newTotal = cartItems
       .filter((item) => item.selected)
-      .reduce((total, item) => total + item.price * item.quantity, 0)
-      .toFixed(2);
+      .reduce((total, item) => total + item.price * item.quantity, 0);
+
+    dispatch(setTotalAmount(newTotal));
+    return newTotal.toFixed(2);
   };
 
   useEffect(() => {
+    calculateTotalPrice();
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
       if (cartItems.length > 0) {
-       
         event.preventDefault();
         event.returnValue =
           "You have items in your cart. Are you sure you want to leave?";
@@ -125,13 +123,14 @@ const CartPage: React.FC = () => {
       </div>
       {cartItems.length > 0 && (
         <div className="mt-4 flex justify-between items-center">
-          <div className="text-xl font-bold">Total: ${getTotalPrice()}</div>
-          <button
-            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-200"
-            onClick={() => alert("Proceeding to Checkout")}
-          >
-            Proceed to Checkout
-          </button>
+          <div className="text-xl font-bold">
+            Total: ${calculateTotalPrice()}
+          </div>
+          <NavLink to="/checkout">
+            <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-200">
+              Proceed to Checkout
+            </button>
+          </NavLink>
         </div>
       )}
     </div>
@@ -139,3 +138,4 @@ const CartPage: React.FC = () => {
 };
 
 export default CartPage;
+
