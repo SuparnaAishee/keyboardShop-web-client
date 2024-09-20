@@ -6,11 +6,11 @@ const TopBrands: React.FC = () => {
     <section className="py-12 px-4">
       <div className="container mx-auto text-center">
         <h2 className="text-2xl font-bold mb-8">Top Featured Brands</h2>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 ">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4  ">
           {brands.map((brand, index) => (
             <div
               key={index}
-              className="p-4 shadow-lg rounded-lg transform transition-transform duration-300 hover:scale-105 flex flex-col items-center justify-center"
+              className="p-4 shadow-lg rounded-lg transform transition-transform duration-300 hover:scale-105 flex flex-col items-center justify-center bg-gray-900"
               style={{ height: "200px", width: "250px" }}
             >
               <img

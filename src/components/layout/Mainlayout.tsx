@@ -11,7 +11,7 @@ import Footer from "./footer";
       <div>
         <Navbar />
        
-        <main>
+        <main >
           <Outlet />
         </main>
         <Footer/>

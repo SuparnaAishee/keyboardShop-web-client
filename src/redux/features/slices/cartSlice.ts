@@ -11,6 +11,10 @@ interface CartItem {
   price: number;
   quantity: number;
   selected?: boolean; // Add this line if you need it
+  inventory: {
+    quantity: number; // Backend's inventory quantity
+    inStock: number; // Available stock
+  };
 }
 
 

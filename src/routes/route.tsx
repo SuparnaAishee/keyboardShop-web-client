@@ -7,6 +7,7 @@ import Contact from "@/pages/contact";
 import Home from "@/pages/HeroSection";
 
 import ManageProducts from "@/pages/ManageProducts";
+import ProductDetailsPage from "@/pages/ProductDetails";
 
 import Product from "@/pages/products";
 
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <Home /> },
       { path: "products", element: <Product/> },
+      { path: "product/:productId", element: <ProductDetailsPage/> },
       { path: "manage-products", element: <ManageProducts /> },
       { path: "about", element: <About /> },
       { path: "contact", element: <Contact /> },
