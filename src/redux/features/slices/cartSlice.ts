@@ -13,7 +13,7 @@ interface CartItem {
   selected?: boolean; // Add this line if you need it
   inventory: {
     quantity: number; // Backend's inventory quantity
-    inStock: number; // Available stock
+    inStock: boolean; // Available stock
   };
 }
 

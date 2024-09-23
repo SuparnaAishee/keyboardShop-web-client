@@ -1,3 +1,288 @@
+
+// import { useEffect, useState } from "react";
+// import {
+//   useGetProductsQuery,
+//   useDeleteProductMutation,
+//   useUpdateProductMutation,
+//   useCreateProductMutation,
+//   Product,
+// } from "@/redux/api/api";
+// import {
+//   Table,
+//   TableBody,
+//   TableCell,
+//   TableHead,
+//   TableHeader,
+//   TableRow,
+// } from "@/components/ui/table";
+// import {
+//   Dialog,
+//   DialogContent,
+//   DialogHeader,
+//   DialogFooter,
+//   DialogTitle,
+//   DialogDescription,
+// } from "@/components/ui/dialog";
+// import { Input } from "@/components/ui/input";
+// import { Button } from "@/components/ui/button";
+// import { useToast } from "@/components/ui/use-toast";
+
+// const ManageProduct = () => {
+//   const { data, error, isLoading } = useGetProductsQuery();
+//   const [deleteProduct] = useDeleteProductMutation();
+//   const [updateProduct] = useUpdateProductMutation();
+//   const [createProduct] = useCreateProductMutation();
+//   const { toast } = useToast();
+
+//   const [products, setProducts] = useState<Product[]>([]);
+//   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+//   const [newProduct, setNewProduct] = useState<Partial<Product>>({
+//     name: "",
+//     brand: "",
+//     price: 0,
+//     description: "",
+//     image: "",
+//     quantity: 0,
+//     ratings: 0,
+//   });
+//   const [open, setOpen] = useState(false); // Modal state
+
+//   useEffect(() => {
+//     if (data) {
+//       setProducts(data?.data);
+//     }
+//   }, [data]);
+
+//  const handleDelete = async (id: string) => {
+//    try {
+//      const response = await deleteProduct(id).unwrap();
+//      console.log("Product deleted:", response); // Log to confirm deletion
+//      toast({ description: "Product deleted successfully!" }); // Toast should show
+//      setProducts(products.filter((product) => product._id !== id)); // Update the product list
+//    } catch (err) {
+//      console.log("Error while deleting product:", err);
+//      toast({
+//        description: "Failed to delete product.",
+//        variant: "destructive",
+//      });
+//    }
+//  };
+
+
+//   const handleUpdate = async (id: string, updatedProduct: Partial<Product>) => {
+//     try {
+//       await updateProduct({ id, product: updatedProduct }).unwrap();
+//       toast({ description: "Product updated successfully!" });
+//     } catch (err) {
+//       toast({
+//         description: "Failed to update product.",
+//         variant: "destructive",
+//       });
+//     }
+//   };
+
+//   const handleCreate = async (newProduct: Partial<Product>) => {
+//     try {
+//       await createProduct(newProduct).unwrap();
+//       toast({ description: "Product created successfully!" });
+//     } catch (err) {
+//       toast({
+//         description: "Failed to create product.",
+//         variant: "destructive",
+//       });
+//     }
+//   };
+
+//   if (isLoading) return <div>Loading...</div>;
+//   if (error)
+//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//     return <div>Error: {(error as any).data?.message || "Unknown error"}</div>;
+
+//   return (
+//     <div className="bg-gray-800 p-8 pl-20 pr-20 pt-20">
+//       <h1 className="text-3xl font-semibold mb-4 text-center text-white">
+//         Product Management
+//       </h1>
+//       <div className="flex justify-end mb-4">
+//         <Button
+//           onClick={() => {
+//             setSelectedProduct(null);
+//             setNewProduct({
+//               name: "",
+//               brand: "",
+//               price: 0,
+//               description: "",
+//               image: "",
+//               quantity: 0,
+//               ratings: 0,
+//             });
+//             setOpen(true); // Open modal for adding product
+//           }}
+//           className="bg-blue-600 hover:bg-blue-700 transition duration-200"
+//         >
+//           Add Product
+//         </Button>
+//       </div>
+//       <Table className="text-white bg-gray-600 pl-8 pr-8">
+//         <TableHeader>
+//           <TableRow >
+//             <TableHead className="w-[550px] text-white pl-4">Name</TableHead>
+//             <TableHead className="w-[350px] text-white pl-4">Brand</TableHead>
+//             <TableHead className="w-[100px] text-white pl-4">Price</TableHead>
+//             <TableHead className="text-right text-white">Actions</TableHead>
+//           </TableRow>
+//         </TableHeader>
+//         <TableBody>
+//           {products.length > 0 ? (
+//             products.map((item) => (
+//               <TableRow
+//                 key={item._id}
+//                 className="hover:bg-gray-700 transition duration-150"
+//               >
+//                 <TableCell className="font-medium">{item.name}</TableCell>
+//                 <TableCell>{item.brand}</TableCell>
+//                 <TableCell>${item.price.toFixed(2)}</TableCell>
+//                 <TableCell className="text-right">
+//                   <Button
+//                     onClick={() => {
+//                       setSelectedProduct(item);
+//                       setNewProduct(item);
+//                       setOpen(true); // Open modal for updating product
+//                     }}
+//                     className="mr-4"
+//                   >
+//                     Update
+//                   </Button>
+//                   <Button
+//                     onClick={() => handleDelete(item._id)}
+//                     variant="destructive"
+//                   >
+//                     Delete
+//                   </Button>
+//                 </TableCell>
+//               </TableRow>
+//             ))
+//           ) : (
+//             <TableRow>
+//               <TableCell colSpan={4} className="text-center">
+//                 No products available
+//               </TableCell>
+//             </TableRow>
+//           )}
+//         </TableBody>
+//       </Table>
+
+//       <Dialog open={open} onOpenChange={setOpen}>
+//         <DialogContent>
+//           <DialogHeader>
+//             <DialogTitle>
+//               {selectedProduct ? "Update Product" : "Add Product"}
+//             </DialogTitle>
+//           </DialogHeader>
+//           <DialogDescription>
+//             <form
+//               onSubmit={(e) => {
+//                 e.preventDefault();
+//                 if (selectedProduct) {
+//                   handleUpdate(selectedProduct._id, newProduct);
+//                 } else {
+//                   handleCreate(newProduct);
+//                 }
+//                 setOpen(false); // Close modal after submission
+//               }}
+//             >
+//               <div className="mb-4">
+//                 <Input
+//                   placeholder="Name"
+//                   value={newProduct.name}
+//                   onChange={(e) =>
+//                     setNewProduct({ ...newProduct, name: e.target.value })
+//                   }
+//                 />
+//               </div>
+//               <div className="mb-4">
+//                 <Input
+//                   placeholder="Brand"
+//                   value={newProduct.brand}
+//                   onChange={(e) =>
+//                     setNewProduct({ ...newProduct, brand: e.target.value })
+//                   }
+//                 />
+//               </div>
+//               <div className="mb-4">
+//                 <Input
+//                   placeholder="Price"
+//                   type="number"
+//                   value={newProduct.price}
+//                   onChange={(e) =>
+//                     setNewProduct({
+//                       ...newProduct,
+//                       price: parseFloat(e.target.value),
+//                     })
+//                   }
+//                 />
+//               </div>
+//               <div className="mb-4">
+//                 <Input
+//                   placeholder="Description"
+//                   value={newProduct.description}
+//                   onChange={(e) =>
+//                     setNewProduct({
+//                       ...newProduct,
+//                       description: e.target.value,
+//                     })
+//                   }
+//                 />
+//               </div>
+//               <div className="mb-4">
+//                 <Input
+//                   placeholder="Image URL"
+//                   value={newProduct.image}
+//                   onChange={(e) =>
+//                     setNewProduct({ ...newProduct, image: e.target.value })
+//                   }
+//                 />
+//               </div>
+//               <div className="mb-4">
+//                 <Input
+//                   placeholder="Quantity"
+//                   type="number"
+//                   value={newProduct.quantity}
+//                   onChange={(e) =>
+//                     setNewProduct({
+//                       ...newProduct,
+//                       quantity: parseInt(e.target.value),
+//                     })
+//                   }
+//                 />
+//               </div>
+//               <div className="mb-4">
+//                 <Input
+//                   placeholder="Ratings"
+//                   type="number"
+//                   value={newProduct.ratings}
+//                   onChange={(e) =>
+//                     setNewProduct({
+//                       ...newProduct,
+//                       ratings: parseFloat(e.target.value),
+//                     })
+//                   }
+//                 />
+//               </div>
+//               <DialogFooter>
+//                 <Button type="submit">
+//                   {selectedProduct ? "Update" : "Add"} Product
+//                 </Button>
+//               </DialogFooter>
+//             </form>
+//           </DialogDescription>
+//         </DialogContent>
+//       </Dialog>
+//     </div>
+//   );
+// };
+
+// export default ManageProduct;
 import { useEffect, useState } from "react";
 import {
   useGetProductsQuery,
@@ -24,16 +309,14 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
+import Swal from "sweetalert2"; // Import SweetAlert
 
 const ManageProduct = () => {
   const { data, error, isLoading } = useGetProductsQuery();
   const [deleteProduct] = useDeleteProductMutation();
   const [updateProduct] = useUpdateProductMutation();
   const [createProduct] = useCreateProductMutation();
-  const { toast } = useToast();
 
-  // Set initial state types
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [newProduct, setNewProduct] = useState<Partial<Product>>({
@@ -42,61 +325,67 @@ const ManageProduct = () => {
     price: 0,
     description: "",
     image: "",
-    quantity: 0, 
-    ratings: 0, 
+    inventory: { quantity: 0, inStock: true },
+    category: "",
+    ratings: 0,
   });
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (data) {
-      setProducts(data?.data); 
+      setProducts(data?.data);
     }
   }, [data]);
 
   const handleDelete = async (id: string) => {
     try {
       await deleteProduct(id).unwrap();
-      setProducts((prevProducts) =>
-        prevProducts.filter((product) => product._id !== id)
-      );
-      toast({ description: "Product deleted successfully!" });
+      setProducts(products.filter((product) => product._id !== id));
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: "Product deleted successfully!",
+      });
     } catch (err) {
-      console.error("Delete Error:", err);
-      toast({
-        description: "Failed to delete product.",
-        variant: "destructive",
+      console.error("Error while deleting product:", err);
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Failed to delete product.",
       });
     }
   };
 
   const handleUpdate = async (id: string, updatedProduct: Partial<Product>) => {
     try {
-      const response = await updateProduct({
-        id,
-        product: updatedProduct,
-      }).unwrap();
-      setProducts((prevProducts) =>
-        prevProducts.map((product) => (product._id === id ? response : product))
-      );
-      toast({ description: "Product updated successfully!" });
+      await updateProduct({ id, product: updatedProduct }).unwrap();
+      Swal.fire({
+        icon: "success",
+        title: "Updated!",
+        text: "Product updated successfully!",
+      });
     } catch (err) {
-      console.error("Update Error:", err);
-      toast({
-        description: "Failed to update product.",
-        variant: "destructive",
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Failed to update product.",
       });
     }
   };
 
-  const handleCreate = async (product: Partial<Product>) => {
+  const handleCreate = async (newProduct: Partial<Product>) => {
     try {
-      const response = await createProduct(product).unwrap();
-      setProducts((prevProducts) => [...prevProducts, response]);
-      toast({ description: "Product created successfully!" });
+      await createProduct(newProduct).unwrap();
+      Swal.fire({
+        icon: "success",
+        title: "Created!",
+        text: "Product created successfully!",
+      });
     } catch (err) {
-      console.error("Create Error:", err);
-      toast({
-        description: "Failed to create product.",
-        variant: "destructive",
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Failed to create product.",
       });
     }
   };
@@ -107,210 +396,231 @@ const ManageProduct = () => {
     return <div>Error: {(error as any).data?.message || "Unknown error"}</div>;
 
   return (
-    <div className="bg-gray-800">
-      <h1 className="text-3xl font-semibold mb-4 text-center text-white pt-8">
+    <div className="bg-gray-800 p-8 pl-20 pr-20 pt-20">
+      <h1 className="text-3xl font-semibold mb-4 text-center text-white">
         Product Management
       </h1>
-      <div className="pl-20 pr-20">
+      <div className="flex justify-end mb-4">
         <Button
-          onClick={() => setSelectedProduct(null)}
-          className="bg-blue-600"
+          onClick={() => {
+            setSelectedProduct(null);
+            setNewProduct({
+              name: "",
+              brand: "",
+              price: 0,
+              description: "",
+              image: "",
+              inventory: { quantity: 0, inStock: true },
+              category: "",
+              ratings: 0,
+            });
+            setOpen(true);
+          }}
+          className="bg-blue-600 hover:bg-blue-700 transition duration-200"
         >
           Add Product
         </Button>
-        <Table className="text-white">
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px] text-white">Name</TableHead>
-              <TableHead className="text-white">Brand</TableHead>
-              <TableHead className="text-white">Price</TableHead>
-              <TableHead className="text-right text-white">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {products.length > 0 ? (
-              products.map((item) => (
-                <TableRow key={item._id}>
-                  <TableCell className="font-medium">{item.name}</TableCell>
-                  <TableCell>{item.brand}</TableCell>
-                  <TableCell>{item.price}</TableCell>
-                  <TableCell className="text-right">
-                    <Button onClick={() => setSelectedProduct(item)}>
-                      Update
-                    </Button>
-                    <Button onClick={() => handleDelete(item._id)}>
-                      Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={4} className="text-center">
-                  No products available
+      </div>
+      <Table className="text-white bg-gray-600 pl-8 pr-8">
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[550px] text-white pl-4">Name</TableHead>
+            <TableHead className="w-[350px] text-white pl-4">Brand</TableHead>
+            <TableHead className="w-[100px] text-white pl-4">Price</TableHead>
+            <TableHead className="text-right text-white">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {products.length > 0 ? (
+            products.map((item) => (
+              <TableRow
+                key={item._id}
+                className="hover:bg-gray-700 transition duration-150"
+              >
+                <TableCell className="font-medium">{item.name}</TableCell>
+                <TableCell>{item.brand}</TableCell>
+                <TableCell>${item.price.toFixed(2)}</TableCell>
+                <TableCell className="text-right">
+                  <Button
+                    onClick={() => {
+                      setSelectedProduct(item);
+                      setNewProduct(item);
+                      setOpen(true);
+                    }}
+                    className="mr-4"
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    onClick={() => handleDelete(item._id)}
+                    variant="destructive"
+                  >
+                    Delete
+                  </Button>
                 </TableCell>
               </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
-      {selectedProduct !== null && (
-        <Dialog open={true} onOpenChange={() => setSelectedProduct(null)}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>
-                {selectedProduct._id ? "Update Product" : "Add Product"}
-              </DialogTitle>
-            </DialogHeader>
-            <DialogDescription>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  if (selectedProduct._id) {
-                    handleUpdate(selectedProduct._id, selectedProduct);
-                  } else {
-                    handleCreate(newProduct);
-                  }
-                  setSelectedProduct(null);
-                }}
-              >
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={4} className="text-center">
+                No products available
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {selectedProduct ? "Update Product" : "Add Product"}
+            </DialogTitle>
+          </DialogHeader>
+          <DialogDescription>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (selectedProduct) {
+                  handleUpdate(selectedProduct._id, newProduct);
+                } else {
+                  handleCreate(newProduct);
+                }
+                setOpen(false);
+              }}
+            >
+              <div className="mb-4">
+                <label className="block text-black mb-1">Name</label>
                 <Input
-                  placeholder="Name"
-                  value={
-                    selectedProduct?._id
-                      ? selectedProduct.name
-                      : newProduct.name
-                  }
+                  placeholder="Enter product name"
+                  value={newProduct.name}
+                  required
                   onChange={(e) =>
-                    selectedProduct?._id
-                      ? setSelectedProduct({
-                          ...selectedProduct,
-                          name: e.target.value,
-                        })
-                      : setNewProduct({ ...newProduct, name: e.target.value })
+                    setNewProduct({ ...newProduct, name: e.target.value })
                   }
                 />
+              </div>
+              <div className="mb-4">
+                <label className="block text-black mb-1">Brand</label>
                 <Input
-                  placeholder="Brand"
-                  value={
-                    selectedProduct?._id
-                      ? selectedProduct.brand
-                      : newProduct.brand
-                  }
+                  placeholder="Enter brand"
+                  value={newProduct.brand}
+                  required
                   onChange={(e) =>
-                    selectedProduct?._id
-                      ? setSelectedProduct({
-                          ...selectedProduct,
-                          brand: e.target.value,
-                        })
-                      : setNewProduct({ ...newProduct, brand: e.target.value })
+                    setNewProduct({ ...newProduct, brand: e.target.value })
                   }
                 />
+              </div>
+              <div className="flex mb-4 space-x-4">
+                <div className="w-1/2">
+                  <label className="block text-black mb-1">Price</label>
+                  <Input
+                    placeholder="Price"
+                    type="number"
+                    value={newProduct.price}
+                    required
+                    onChange={(e) =>
+                      setNewProduct({
+                        ...newProduct,
+                        price: parseFloat(e.target.value),
+                      })
+                    }
+                  />
+                </div>
+                <div className="w-1/2">
+                  <label className="block text-black mb-1">Category</label>
+                  <Input
+                    placeholder="Category"
+                    value={newProduct.category}
+                    required
+                    onChange={(e) =>
+                      setNewProduct({
+                        ...newProduct,
+                        category: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+              </div>
+              <div className="flex mb-4 space-x-4">
+                <div className="w-1/2">
+                  <label className="block text-black mb-1">Quantity</label>
+                  <Input
+                    placeholder="Quantity"
+                    type="number"
+                    value={newProduct.inventory?.quantity}
+                    required
+                    onChange={(e) =>
+                      setNewProduct({
+                        ...newProduct,
+                        inventory: {
+                          ...newProduct.inventory,
+                          quantity: parseInt(e.target.value),
+                        },
+                      })
+                    }
+                  />
+                </div>
+                <div className="w-1/2">
+                  <label className="block text-black mb-1">In Stock</label>
+                  <Input
+                    type="checkbox"
+                    checked={newProduct.inventory?.inStock}
+                    onChange={(e) =>
+                      setNewProduct({
+                        ...newProduct,
+                        inventory: {
+                          ...newProduct.inventory,
+                          inStock: e.target.checked,
+                        },
+                      })
+                    }
+                  />
+                </div>
+              </div>
+              <div className="mb-4">
+                <label className="block text-black mb-1">Description</label>
                 <Input
-                  placeholder="Price"
-                  type="number"
-                  value={
-                    selectedProduct?._id
-                      ? selectedProduct.price
-                      : newProduct.price
-                  }
+                  placeholder="Enter product description"
+                  value={newProduct.description}
+                  required
                   onChange={(e) =>
-                    selectedProduct?._id
-                      ? setSelectedProduct({
-                          ...selectedProduct,
-                          price: parseFloat(e.target.value),
-                        })
-                      : setNewProduct({
-                          ...newProduct,
-                          price: parseFloat(e.target.value),
-                        })
+                    setNewProduct({
+                      ...newProduct,
+                      description: e.target.value,
+                    })
                   }
                 />
-                <Input
-                  placeholder="Description"
-                  value={
-                    selectedProduct?._id
-                      ? selectedProduct.description
-                      : newProduct.description
-                  }
-                  onChange={(e) =>
-                    selectedProduct?._id
-                      ? setSelectedProduct({
-                          ...selectedProduct,
-                          description: e.target.value,
-                        })
-                      : setNewProduct({
-                          ...newProduct,
-                          description: e.target.value,
-                        })
-                  }
-                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-black mb-1">Image URL</label>
                 <Input
                   placeholder="Image URL"
-                  value={
-                    selectedProduct?._id
-                      ? selectedProduct.image
-                      : newProduct.image
-                  }
+                  value={newProduct.image}
+                  required
                   onChange={(e) =>
-                    selectedProduct?._id
-                      ? setSelectedProduct({
-                          ...selectedProduct,
-                          image: e.target.value,
-                        })
-                      : setNewProduct({ ...newProduct, image: e.target.value })
+                    setNewProduct({
+                      ...newProduct,
+                      image: e.target.value,
+                    })
                   }
                 />
-                <Input
-                  placeholder="Quantity"
-                  type="number"
-                  value={
-                    selectedProduct?._id
-                      ? selectedProduct.quantity
-                      : newProduct.quantity
-                  }
-                  onChange={(e) =>
-                    selectedProduct?._id
-                      ? setSelectedProduct({
-                          ...selectedProduct,
-                          quantity: parseInt(e.target.value),
-                        })
-                      : setNewProduct({
-                          ...newProduct,
-                          quantity: parseInt(e.target.value),
-                        })
-                  }
-                />
-                <Input
-                  placeholder="Ratings"
-                  type="number"
-                  value={
-                    selectedProduct?._id
-                      ? selectedProduct.ratings
-                      : newProduct.ratings
-                  }
-                  onChange={(e) =>
-                    selectedProduct?._id
-                      ? setSelectedProduct({
-                          ...selectedProduct,
-                          ratings: parseFloat(e.target.value),
-                        })
-                      : setNewProduct({
-                          ...newProduct,
-                          ratings: parseFloat(e.target.value),
-                        })
-                  }
-                />
-                <DialogFooter>
-                  <Button type="submit">
-                    {selectedProduct._id ? "Update" : "Add"} Product
-                  </Button>
-                </DialogFooter>
-              </form>
-            </DialogDescription>
-          </DialogContent>
-        </Dialog>
-      )}
+              </div>
+              <DialogFooter>
+                <Button
+                  type="submit"
+                  className="bg-blue-600 hover:bg-blue-700 transition duration-200"
+                >
+                  {selectedProduct ? "Update Product" : "Create Product"}
+                </Button>
+                <Button onClick={() => setOpen(false)} className="ml-2">
+                  Cancel
+                </Button>
+              </DialogFooter>
+            </form>
+          </DialogDescription>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

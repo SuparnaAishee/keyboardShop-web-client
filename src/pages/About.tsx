@@ -82,7 +82,7 @@ const AboutUs: React.FC = () => {
 
       <section className="bg-gray-900 py-12 px-4">
         <div className="container mx-auto text-white text-center">
-          <h2 className="text-3xl font-semibold mb-4">What We Are</h2>
+          <h2 className="text-3xl font-semibold mb-4 text-blue-500">What We Are</h2>
           <h1 className="text-5xl font-bold mb-6">
             Your Mechanical Keyboard Marketplace
           </h1>

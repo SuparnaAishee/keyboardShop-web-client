@@ -3,9 +3,9 @@ import brands from "@/brand.json";
 
 const TopBrands: React.FC = () => {
   return (
-    <section className="py-12 px-4">
+    <section className="py-12 px-4 pt-20">
       <div className="container mx-auto text-center">
-        <h2 className="text-2xl font-bold mb-8">Top Featured Brands</h2>
+        <h2 className="text-3xl font-bold mb-8">Top Featured Brands</h2>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4  ">
           {brands.map((brand, index) => (
             <div

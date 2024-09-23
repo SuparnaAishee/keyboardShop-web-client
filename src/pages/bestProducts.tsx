@@ -259,7 +259,13 @@ const BestSellingProducts: React.FC = () => {
 
   // Handle adding a product to the cart
   const handleAddToCart = (product: Product) => {
-    dispatch(addToCart({ ...product, quantity: 1, id: product._id }));
+    dispatch(addToCart({
+      ...product, quantity: 1, id: product._id,
+      inventory: {
+        quantity: 0,
+        inStock: false
+      }
+    }));
   };
 
   // Handle navigation to product details
@@ -282,7 +288,7 @@ const BestSellingProducts: React.FC = () => {
             {products.map((product, index) => (
               <div
                 key={index}
-                className="inline-block bg-white shadow-lg rounded-lg overflow-hidden w-60 mr-4"
+                className="inline-block bg-white shadow-lg rounded-lg overflow-hidden w-75 mr-4"
               >
                 {/* Product Image */}
                 {product.image && (

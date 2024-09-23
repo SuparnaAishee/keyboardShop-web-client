@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -16,10 +16,14 @@ import ReviewSection from "./Review";
 import FAQ from "./FAQ";
 import BestSellingProducts from "./bestProducts";
 import LatestProducts from "./LatestProduct";
-
+import Aos from "aos";
 
 
 const HeroSection: React.FC = () => {
+  useEffect(() => {
+    Aos.init({ duration: 1000, once: false });
+  }, []);
+
   const slides = [
     {
       image: banner1,
@@ -79,17 +83,19 @@ const HeroSection: React.FC = () => {
         <FeatureSection />
       </div>
 
-      <div>
+      <div data-aos="fade-up">
+        <LatestProducts />
+      </div>
+      <div data-aos="fade-down">
         <TopBrands />
       </div>
-    <div><LatestProducts/></div>
-      <div>
+      <div data-aos="fade-up">
         <BestSellingProducts />
       </div>
-      <div>
+      <div data-aos="fade-right">
         <ReviewSection />
       </div>
-      <div>
+      <div data-aos="fade-up">
         <FAQ />
       </div>
     </div>
